@@ -39,7 +39,7 @@
 </head>
 <body class="p-8">
     <div id="container" class="bg-gray-900 bg-opacity-80 backdrop-blur-sm p-6 rounded-3xl shadow-xl max-w-lg mx-auto border-4 border-pink-500 transform transition-all duration-300 hover:scale-105">
-        <h1 class="font-fofo text-4xl font-bold mb-6 text-center text-pink-400 tracking-wide drop-shadow-lg">Deixe um Sonho! 🌙</h1>
+        <h1 class="font-fofo text-4xl font-bold mb-6 text-center text-pink-400 tracking-wide drop-shadow-lg">Deixe Um Comentário 🌙</h1>
         
         <input type="text" id="nameInput" placeholder="Seu Nome..." 
                class="w-full p-3 mb-4 bg-gray-800 rounded-xl border-2 border-purple-700 text-gray-200 
@@ -55,7 +55,7 @@
                 class="font-fofo bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full w-full 
                        text-xl tracking-wide shadow-lg transition-all duration-200 transform hover:scale-105 
                        focus:outline-none focus:ring-4 focus:ring-pink-300">
-            Enviar ao Luar! 🚀
+            Enviar 💕
         </button>
         
         <div id="comments" class="mt-8 max-h-80 overflow-y-auto border-2 border-purple-700 p-4 rounded-2xl bg-gray-800 shadow-inner">
@@ -88,14 +88,14 @@
 
             if (error) {
                 console.error('Erro Ao Carregar Comentários:', error);
-                commentsDiv.innerHTML = '<p class="text-red-400 text-center font-fofo">Ah não! A magia da noite falhou.</p>';
+                commentsDiv.innerHTML = '<p class="text-red-400 text-center font-fofo">Ah Não! A Magia Falhou.</p>';
                 return;
             }
 
             commentsDiv.innerHTML = ''; // Limpa a lista
 
             if (comments.length === 0) {
-                commentsDiv.innerHTML = '<p class="text-purple-300 text-center font-fofo">O céu está sem estrelas. Seja a primeira! ✨</p>';
+                commentsDiv.innerHTML = '<p class="text-purple-300 text-center font-fofo">Seja O Primeiro A Comentar ✨</p>';
                 return;
             }
 
@@ -139,7 +139,7 @@
             } else {
                 usernameInput.value = '';
                 commentInput.value = '';
-                Swal.fire({ icon: 'success', title: 'Oba!', text: 'Seu recadinho foi enviado com sucesso! ✨', ...cuteDarkTheme, timer: 1500, showConfirmButton: false });
+                Swal.fire({ icon: 'success', title: 'Oba!', text: 'Seu Recadinho Foi Enviado Com Sucesso! ✨', ...cuteDarkTheme, timer: 1500, showConfirmButton: false });
                 loadComments(); // Recarrega a lista
             }
         }
