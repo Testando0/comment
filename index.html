@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Comentários Fofinho! 🌙</title>
+    <title> Comentários 🌙</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -41,12 +41,12 @@
     <div id="container" class="bg-gray-900 bg-opacity-80 backdrop-blur-sm p-6 rounded-3xl shadow-xl max-w-lg mx-auto border-4 border-pink-500 transform transition-all duration-300 hover:scale-105">
         <h1 class="font-fofo text-4xl font-bold mb-6 text-center text-pink-400 tracking-wide drop-shadow-lg">Deixe um Sonho! 🌙</h1>
         
-        <input type="text" id="nameInput" placeholder="Sua estrela guia..." 
+        <input type="text" id="nameInput" placeholder="Seu Nome..." 
                class="w-full p-3 mb-4 bg-gray-800 rounded-xl border-2 border-purple-700 text-gray-200 
                       focus:outline-none focus:ring-4 focus:ring-pink-400 focus:border-pink-500 
                       placeholder-purple-400 transition-all duration-200 shadow-md">
         
-        <textarea id="commentInput" placeholder="Seu recadinho da madrugada aqui..." 
+        <textarea id="commentInput" placeholder="Escreva Aqui..." 
                   class="w-full p-3 mb-4 bg-gray-800 rounded-xl border-2 border-purple-700 text-gray-200 
                          focus:outline-none focus:ring-4 focus:ring-pink-400 focus:border-pink-500 
                          placeholder-purple-400 transition-all duration-200 shadow-md h-32"></textarea>
@@ -59,7 +59,7 @@
         </button>
         
         <div id="comments" class="mt-8 max-h-80 overflow-y-auto border-2 border-purple-700 p-4 rounded-2xl bg-gray-800 shadow-inner">
-            <p class="text-purple-300 text-center font-fofo">Buscando estrelas cadentes...</p>
+            <p class="text-purple-300 text-center font-fofo">Buscando Comentários...</p>
         </div>
     </div>
 
@@ -87,7 +87,7 @@
                 .order('created_at', { ascending: false });
 
             if (error) {
-                console.error('Erro ao carregar comentários:', error);
+                console.error('Erro Ao Carregar Comentários:', error);
                 commentsDiv.innerHTML = '<p class="text-red-400 text-center font-fofo">Ah não! A magia da noite falhou.</p>';
                 return;
             }
@@ -125,7 +125,7 @@
             const comment = commentInput.value.trim();
 
             if (!username || !comment) {
-                Swal.fire({ icon: 'error', title: 'Opa!', text: 'Por favor, não deixe campos vazios! 🥺', ...cuteDarkTheme, confirmButtonColor: '#d946ef' });
+                Swal.fire({ icon: 'error', title: 'Opa!', text: 'Por Favor, Não Deixe Campos Vazios! 🥺', ...cuteDarkTheme, confirmButtonColor: '#d946ef' });
                 return;
             }
 
@@ -134,8 +134,8 @@
                 .insert([{ username: username, comment: comment }]);
 
             if (error) {
-                console.error('Erro ao adicionar comentário:', error);
-                Swal.fire({ icon: 'error', title: 'Que pena!', text: 'Não consegui registrar seu sonho agora. Tente de novo! 💔', ...cuteDarkTheme, confirmButtonColor: '#d946ef' });
+                console.error('Erro Ao Adicionar Comentário:', error);
+                Swal.fire({ icon: 'error', title: 'Que Pena!', text: 'Não Consegui Registrar Seu Comentário Agora. Tente De Novo! 💔', ...cuteDarkTheme, confirmButtonColor: '#d946ef' });
             } else {
                 usernameInput.value = '';
                 commentInput.value = '';
@@ -147,7 +147,7 @@
         // Função para deletar um comentário
         function deleteComment(id) {
             Swal.fire({
-                title: 'Tem certeza?', text: "Vai apagar esse sonho pra sempre? 😭", icon: 'warning', showCancelButton: true, confirmButtonColor: '#e91e63', cancelButtonColor: '#a855f7', confirmButtonText: 'Sim, apagar! 🗑️', cancelButtonText: 'Não, deixar! 💖', ...cuteDarkTheme
+                title: 'Tem Certeza?', text: "Vai Apagar Esse Comentário? 😭", icon: 'warning', showCancelButton: true, confirmButtonColor: '#e91e63', cancelButtonColor: '#a855f7', confirmButtonText: 'Sim 🗑️', cancelButtonText: 'Não 💖', ...cuteDarkTheme
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     const { error } = await supabaseClient
@@ -156,10 +156,10 @@
                         .eq('id', id);
                     
                     if (error) {
-                        console.error('Erro ao apagar comentário:', error);
-                        Swal.fire({ icon: 'error', title: 'Erro!', text: 'Não foi possível apagar o recadinho. 😥', ...cuteDarkTheme, confirmButtonColor: '#d946ef' });
+                        console.error('Erro Ao Apagar Comentário:', error);
+                        Swal.fire({ icon: 'error', title: 'Erro!', text: 'Não Foi Possível Apagar O Recadinho. 😥', ...cuteDarkTheme, confirmButtonColor: '#d946ef' });
                     } else {
-                        Swal.fire({ title: 'Virou poeira estelar!', text: 'O sonho foi removido. ☁️', icon: 'success', ...cuteDarkTheme, timer: 1500, showConfirmButton: false });
+                        Swal.fire({ title: 'Virou poeira estelar!', text: 'O Sonho Foi Removido. ☁️', icon: 'success', ...cuteDarkTheme, timer: 1500, showConfirmButton: false });
                         loadComments();
                     }
                 }
