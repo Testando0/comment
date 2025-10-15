@@ -3,44 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema De Comentários (Estilo Kuromi 😈)</title>
+    <title>Sistema de Comentários Fofinho! 🥰</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Aplicando a fonte no container principal */
-        .font-kuromi {
-            font-family: 'Permanent Marker', cursive;
+        .font-fofo {
+            font-family: 'Comfortaa', cursive;
         }
-        /* Custom scrollbar para combinar com o tema */
+        body {
+            background-image: linear-gradient(to bottom right, #fce4ec, #e1bee7); /* Gradiente rosa e roxo */
+        }
+        /* Custom scrollbar para o tema fofo */
         ::-webkit-scrollbar {
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #1f2937; /* bg-gray-800 */
+            background: #f8bbd0; /* Rosa claro */
+            border-radius: 10px;
         }
         ::-webkit-scrollbar-thumb {
-            background: #ef4444; /* bg-red-500 */
+            background: #ab47bc; /* Roxo suave */
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #dc2626; /* bg-red-600 */
+            background: #8e24aa; /* Roxo mais escuro */
         }
     </style>
 </head>
-<body class="bg-black text-white p-8">
-    <div id="container" class="bg-gray-800 p-6 rounded-lg shadow-lg max-w-lg mx-auto border-2 border-red-500">
-        <h1 class="font-kuromi text-3xl font-bold mb-4 text-center text-red-400 tracking-wider">Deixe sua marquinha aqui 😈</h1>
-        <input type="text" id="nameInput" placeholder="Seu apelido..." class="w-full p-3 mb-4 bg-gray-900 rounded border-2 border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
-        <textarea id="commentInput" placeholder="Sua mensagem..." class="w-full p-3 mb-4 bg-gray-900 rounded border-2 border-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
-        <button onclick="addComment()" class="font-kuromi bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg w-full text-lg tracking-wide">Enviar Recado 🤘</button>
-        <div id="comments" class="mt-6 max-h-80 overflow-y-auto border-2 border-gray-700 p-4 rounded bg-black">
-            <p class="text-gray-400 text-center">Carregando recadinhos...</p>
+<body class="p-8">
+    <div id="container" class="bg-white p-6 rounded-3xl shadow-xl max-w-lg mx-auto border-4 border-purple-300 transform transition-all duration-300 hover:scale-105">
+        <h1 class="font-fofo text-4xl font-bold mb-6 text-center text-pink-500 tracking-wide drop-shadow-lg">Deixe um Carinho! 💕</h1>
+        
+        <input type="text" id="nameInput" placeholder="Seu nome fofo..." 
+               class="w-full p-3 mb-4 bg-pink-50 rounded-xl border-2 border-purple-200 text-gray-800 
+                      focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-400 
+                      placeholder-pink-400 transition-all duration-200 shadow-md">
+        
+        <textarea id="commentInput" placeholder="Seu recadinho de amor aqui..." 
+                  class="w-full p-3 mb-4 bg-pink-50 rounded-xl border-2 border-purple-200 text-gray-800 
+                         focus:outline-none focus:ring-4 focus:ring-purple-200 focus:border-purple-400 
+                         placeholder-pink-400 transition-all duration-200 shadow-md h-32"></textarea>
+        
+        <button onclick="addComment()" 
+                class="font-fofo bg-purple-400 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded-full w-full 
+                       text-xl tracking-wide shadow-lg transition-all duration-200 transform hover:scale-105 
+                       focus:outline-none focus:ring-4 focus:ring-purple-200">
+            Mandar Abraço! ✨
+        </button>
+        
+        <div id="comments" class="mt-8 max-h-80 overflow-y-auto border-2 border-purple-200 p-4 rounded-2xl bg-purple-50 shadow-inner">
+            <p class="text-purple-400 text-center font-fofo">Carregando fofurices...</p>
         </div>
     </div>
 
@@ -63,26 +81,26 @@
 
             if (error) {
                 console.error('Erro ao carregar comentários:', error);
-                commentsDiv.innerHTML = '<p class="text-red-400 text-center">Falha ao buscar os recadinhos.</p>';
+                commentsDiv.innerHTML = '<p class="text-red-400 text-center font-fofo">Ah não! Não consegui carregar as mensagens fofas.</p>';
                 return;
             }
 
             commentsDiv.innerHTML = ''; // Limpa a lista
 
             if (comments.length === 0) {
-                commentsDiv.innerHTML = '<p class="text-gray-400 text-center">Nenhum recado ainda. Seja o primeiro!</p>';
+                commentsDiv.innerHTML = '<p class="text-purple-400 text-center font-fofo">Ninguém deixou um carinho ainda. Seja o primeiro! 💖</p>';
                 return;
             }
 
             comments.forEach(comment => {
                 const commentElement = document.createElement('div');
-                commentElement.className = 'bg-gray-800 p-4 mb-4 rounded-lg relative flex justify-between items-start border-l-4 border-red-500';
+                commentElement.className = 'bg-white p-4 mb-3 rounded-xl shadow-md relative flex justify-between items-start border-l-4 border-pink-300 animate-fade-in-up transform transition-all duration-200 hover:scale-[1.01]';
                 commentElement.innerHTML = `
                     <div>
-                        <strong class="text-red-400 font-bold">${comment.username}</strong>
-                        <p class="text-gray-300 mt-1 break-words">${comment.comment}</p>
+                        <strong class="text-purple-600 font-bold font-fofo">${comment.username}</strong>
+                        <p class="text-gray-700 mt-1 break-words font-fofo">${comment.comment}</p>
                     </div>
-                    <button class="text-gray-500 hover:text-red-500 ml-4 flex-shrink-0" onclick="deleteComment(${comment.id})">
+                    <button class="text-purple-300 hover:text-pink-500 ml-4 flex-shrink-0 transition-colors duration-200" onclick="deleteComment(${comment.id})">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                         </svg>
@@ -100,7 +118,7 @@
             const comment = commentInput.value.trim();
 
             if (!username || !comment) {
-                Swal.fire({ icon: 'error', title: 'Opa!', text: 'Preencha todos os campos, né?!', background: '#1f2937', color: '#ffffff', confirmButtonColor: '#ef4444' });
+                Swal.fire({ icon: 'error', title: 'Opsie!', text: 'Por favor, não deixe campos vazios! 🥺', background: '#ffffff', color: '#6a0dad', confirmButtonColor: '#ab47bc' });
                 return;
             }
 
@@ -110,11 +128,11 @@
 
             if (error) {
                 console.error('Erro ao adicionar comentário:', error);
-                Swal.fire({ icon: 'error', title: 'Ih, deu ruim!', text: 'Não consegui salvar seu recado.', background: '#1f2937', color: '#ffffff', confirmButtonColor: '#ef4444' });
+                Swal.fire({ icon: 'error', title: 'Que pena!', text: 'Não consegui registrar seu carinho agora. Tente de novo! 💔', background: '#ffffff', color: '#6a0dad', confirmButtonColor: '#ab47bc' });
             } else {
                 usernameInput.value = '';
                 commentInput.value = '';
-                Swal.fire({ icon: 'success', title: 'É isso aí!', text: 'Seu recado foi enviado!', background: '#1f2937', color: '#ffffff', timer: 1500, showConfirmButton: false });
+                Swal.fire({ icon: 'success', title: 'Oba!', text: 'Seu recadinho foi enviado com sucesso! ✨', background: '#ffffff', color: '#6a0dad', timer: 1500, showConfirmButton: false });
                 loadComments(); // Recarrega a lista
             }
         }
@@ -122,7 +140,7 @@
         // Função para deletar um comentário
         function deleteComment(id) {
             Swal.fire({
-                title: 'Tem certeza?', text: "Vai apagar pra sempre!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#dc2626', cancelButtonColor: '#4b5563', confirmButtonText: 'Sim, apaga!', cancelButtonText: 'Cancelar', background: '#1f2937', color: '#ffffff'
+                title: 'Tem certeza?', text: "Vai apagar esse carinho pra sempre? 😭", icon: 'warning', showCancelButton: true, confirmButtonColor: '#e91e63', cancelButtonColor: '#ba68c8', confirmButtonText: 'Sim, apagar! 🗑️', cancelButtonText: 'Não, deixar! 💖', background: '#ffffff', color: '#6a0dad'
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     const { error } = await supabaseClient
@@ -132,9 +150,9 @@
                     
                     if (error) {
                         console.error('Erro ao apagar comentário:', error);
-                        Swal.fire({ icon: 'error', title: 'Erro!', text: 'Não foi possível apagar o recado.', background: '#1f2937', color: '#ffffff', confirmButtonColor: '#ef4444' });
+                        Swal.fire({ icon: 'error', title: 'Erro!', text: 'Não foi possível apagar o recadinho. 😥', background: '#ffffff', color: '#6a0dad', confirmButtonColor: '#ab47bc' });
                     } else {
-                        Swal.fire({ title: 'Já era!', text: 'O recado foi pro limbo.', icon: 'success', background: '#1f2937', color: '#ffffff', timer: 1500, showConfirmButton: false });
+                        Swal.fire({ title: 'Sumido!', text: 'O carinho foi removido. ☁️', icon: 'success', background: '#ffffff', color: '#6a0dad', timer: 1500, showConfirmButton: false });
                         loadComments();
                     }
                 }
