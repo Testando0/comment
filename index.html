@@ -25,15 +25,16 @@
         const SUPABASE_URL = 'https://zenmufjeziaglseodbna.supabase.co'; 
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inplbm11ZmplemlhZ2xzZW9kYm5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA0NzYyMTUsImV4cCI6MjA3NjA1MjIxNX0.fl3eWlFLyACx5D0yczM0LyvexjGvD2r4wsIPHtTomNI';
         
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        // CORREÇÃO: A variável foi renomeada para 'supabaseClient' para evitar conflito com o objeto global 'supabase'.
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         // --- FIM DA CONFIGURAÇÃO ---
 
         // Função para carregar os comentários do Supabase
         async function loadComments() {
             const commentsDiv = document.getElementById('comments');
             
-            // Busca os dados da tabela "comentarios", ordenando pelos mais recentes
-            const { data: comments, error } = await supabase
+            // CORREÇÃO: Usando 'supabaseClient' para fazer a chamada.
+            const { data: comments, error } = await supabaseClient
                 .from('comentarios')
                 .select('*')
                 .order('created_at', { ascending: false });
@@ -81,8 +82,8 @@
                 return;
             }
 
-            // Insere os dados na tabela "comentarios"
-            const { error } = await supabase
+            // CORREÇÃO: Usando 'supabaseClient' para fazer a chamada.
+            const { error } = await supabaseClient
                 .from('comentarios')
                 .insert([{ username: username, comment: comment }]);
 
@@ -103,8 +104,8 @@
                 title: 'Tem certeza?', text: "Esta ação não poderá ser revertida!", icon: 'warning', showCancelButton: true, confirmButtonColor: '#3085d6', cancelButtonColor: '#d33', confirmButtonText: 'Sim, apagar!', cancelButtonText: 'Cancelar', background: '#2d3748', color: '#ffffff'
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    // Deleta a linha da tabela onde o 'id' corresponde
-                    const { error } = await supabase
+                    // CORREÇÃO: Usando 'supabaseClient' para fazer a chamada.
+                    const { error } = await supabaseClient
                         .from('comentarios')
                         .delete()
                         .eq('id', id);
