@@ -76,6 +76,9 @@
             background: '#2d1e3a',
             color: '#f3e8ff'
         };
+        
+        // O PIN para apagar comentários
+        const DELETE_PIN = '5582';
 
         // Função para carregar os comentários do Supabase
         async function loadComments() {
@@ -144,12 +147,30 @@
             }
         }
 
-        // Função para deletar um comentário
-        function deleteComment(id) {
-            Swal.fire({
-                title: 'Tem Certeza?', text: "Vai Apagar Esse Comentário? 😭", icon: 'warning', showCancelButton: true, confirmButtonColor: '#e91e63', cancelButtonColor: '#a855f7', confirmButtonText: 'Sim 🗑️', cancelButtonText: 'Não 💖', ...cuteDarkTheme
-            }).then(async (result) => {
-                if (result.isConfirmed) {
+        // Função para deletar um comentário (com verificação de PIN)
+        async function deleteComment(id) {
+            const { value: pin } = await Swal.fire({
+                title: 'PIN Necessário 🔑',
+                text: 'Digite o PIN para apagar o comentário:',
+                input: 'password',
+                inputPlaceholder: '****',
+                inputAttributes: {
+                    maxlength: 4,
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Apagar 🗑️',
+                cancelButtonText: 'Cancelar 💖',
+                confirmButtonColor: '#e91e63',
+                cancelButtonColor: '#a855f7',
+                ...cuteDarkTheme
+            });
+
+            // Se o usuário inseriu um PIN
+            if (pin) {
+                if (pin === DELETE_PIN) {
+                    // PIN correto, prossegue com a exclusão
                     const { error } = await supabaseClient
                         .from('comentarios')
                         .delete()
@@ -159,11 +180,20 @@
                         console.error('Erro Ao Apagar Comentário:', error);
                         Swal.fire({ icon: 'error', title: 'Erro!', text: 'Não Foi Possível Apagar O Recadinho. 😥', ...cuteDarkTheme, confirmButtonColor: '#d946ef' });
                     } else {
-                        Swal.fire({ title: 'Virou poeira estelar!', text: 'O Sonho Foi Removido. ☁️', icon: 'success', ...cuteDarkTheme, timer: 1500, showConfirmButton: false });
-                        loadComments();
+                        Swal.fire({ title: 'Virou poeira estelar!', text: 'O Comentário Foi Removido. ☁️', icon: 'success', ...cuteDarkTheme, timer: 1500, showConfirmButton: false });
+                        loadComments(); // Recarrega os comentários
                     }
+                } else {
+                    // PIN incorreto
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'PIN Incorreto!',
+                        text: 'Você não tem permissão para apagar este comentário. 😠',
+                        ...cuteDarkTheme,
+                        confirmButtonColor: '#d946ef'
+                    });
                 }
-            });
+            }
         }
 
         // Carrega os comentários existentes assim que a página é aberta
